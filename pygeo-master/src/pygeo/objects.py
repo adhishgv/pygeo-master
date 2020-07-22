@@ -90,4 +90,19 @@ class Sphere:
 class Triangle:
     """A triangle."""
 
-    ...
+    def __init__(self, p1, p2, p3):
+       self.p1=Point(p1)
+       self.p2=Point(p2)
+       self.p3=Point(p3)
+
+    def __repr__(self):
+       return f"Points (%s), (%s), (%s) represent the triangle" % (self.p1, self.p2, self.p3)
+
+    def __eq__(self, other):
+        if isinstance(other, Triangle):
+            if self.p1 == other.p1 or self.p1 == other.p2 or self.p1 == other.p3:
+                if self.p2 == other.p1 or self.p2 == other.p2 or self.p2 == other.p3:
+                    if self.p3 == other.p1 or self.p3 == other.p2 or self.p3 == other.p3:
+                       return True
+
+        return False               
