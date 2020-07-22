@@ -16,7 +16,7 @@ def _intersect_ray_with_sphere(ray, sphere):
     del_2=np.linalg.norm(oc._vector)**2 - r**2
     del_total=del_1**2 - del_2
 
-    return del_total   
+    return del_total>=0 
 
     
 
