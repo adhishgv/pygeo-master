@@ -19,8 +19,23 @@ def _intersect_ray_with_sphere(ray, sphere):
     del_1=np.dot(u._vector,oc._vector)
     del_2=np.linalg.norm(oc._vector)**2 - r**2
     del_total=del_1**2 - del_2
+    
+    if del_total<0 and abs(del_total)>10**(-5):
+        return False
 
-    return del_total>=0   
+    if abs(del_total)<10**(-5):
+        d = -del_1
+        x = o + Vector(d*u._vector) 
+        return x
+
+    if del_total>10**(-5):
+        d1 = -del_1 + np.sqrt(del_total)
+        d2 = -del_1 - np.sqrt(del_total) 
+        x1 = o + Vector(d1*u._vector) 
+        x2 = o + Vector(d2*u._vector) 
+        x=[x1,x2]
+        return x
+       
 
     
 
@@ -34,7 +49,7 @@ def _intersect_ray_with_triangle(ray, triangle):
         return False
 
     d = np.dot(n, triangle.p1._point)    
-    t = np.dot(n, ray._origin._point) + d
+    t = (np.dot(n, ray._origin._point) + d)/abs(n_dot_dir)
     if t<0:
         return False
     
@@ -59,6 +74,6 @@ def _intersect_ray_with_triangle(ray, triangle):
     c = np.cross(p31._vector, edge3._vector)
     check = np.dot(n, c)
     if  check < 0:
-        return False    
+        return False   
          
-    return True
+    return p
