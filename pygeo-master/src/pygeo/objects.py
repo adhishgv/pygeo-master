@@ -64,7 +64,7 @@ class Ray:
         self._direction= Vector(direction)
 
     def __repr__(self):
-        return f"Point(%s) is the origin and Point(%s) is the direction of the ray" % (self._origin,self._direction)
+        return f"Ray[Origin = (%s), Direction = (%s)]" % (self._origin,self._direction)
 
     def __eq__(self, other):
         if isinstance(other, Ray):
@@ -79,7 +79,7 @@ class Sphere:
        self._radius= float(radius)
 
     def __repr__(self):
-        return f"Point(%s) is the centre and {self._radius} is the radius of the sphere" % (self._centre)
+        return f"Sphere[Centre = (%s), Radius = {self._radius}]" % (self._centre)
 
     def __eq__(self, other):
         if isinstance(other, Sphere):
@@ -96,7 +96,7 @@ class Triangle:
        self.p3=Point(p3)
 
     def __repr__(self):
-       return f"Points (%s), (%s), (%s) represent the triangle" % (self.p1, self.p2, self.p3)
+       return f"Triangle[(%s), (%s), (%s)]" % (self.p1, self.p2, self.p3)
 
     def __eq__(self, other):
         if isinstance(other, Triangle):

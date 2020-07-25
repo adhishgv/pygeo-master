@@ -7,7 +7,15 @@ def intersect(first_object, second_object):
         return _intersect_ray_with_sphere(first_object,second_object)
 
     if isinstance(first_object, Ray) and isinstance(second_object, Triangle):
-        return _intersect_ray_with_triangle(first_object,second_object)    
+        return _intersect_ray_with_triangle(first_object,second_object) 
+
+    if isinstance(first_object, Sphere) and isinstance(second_object, Ray):
+        return _intersect_ray_with_sphere(second_object,first_object) 
+
+    if isinstance(first_object, Triangle) and isinstance(second_object, Ray):
+        return _intersect_ray_with_triangle(second_object,first_object)
+
+    return False              
 
 
 def _intersect_ray_with_sphere(ray, sphere):
@@ -15,6 +23,7 @@ def _intersect_ray_with_sphere(ray, sphere):
     c=sphere._centre
     o=ray._origin
     u=ray._direction
+    # criteria for intersection
     oc = o - c
     del_1=np.dot(u._vector,oc._vector)
     del_2=np.linalg.norm(oc._vector)**2 - r**2
@@ -22,7 +31,7 @@ def _intersect_ray_with_sphere(ray, sphere):
     
     if del_total<0 and abs(del_total)>10**(-5):
         return False
-
+    # intersection point(s) x
     if abs(del_total)<10**(-5):
         d = -del_1
         x = o + Vector(d*u._vector) 
@@ -43,7 +52,8 @@ def _intersect_ray_with_triangle(ray, triangle):
     p12 = triangle.p2 - triangle.p1
     p13 = triangle.p3 - triangle.p1 
     n = np.cross(p12._vector, p13._vector)
-   
+    
+    # criteria for intersection
     n_dot_dir = np.dot(n, ray._direction._vector)
     if abs(n_dot_dir)<10**(-6):
         return False
@@ -55,7 +65,8 @@ def _intersect_ray_with_triangle(ray, triangle):
     
     # intersection point p
     p = ray._origin + Vector(t*ray._direction._vector)    
-
+    
+    # verify point is inside triangle
     edge1 = p - triangle.p1
     c = np.cross(p12._vector, edge1._vector)
     check = np.dot(n, c)
