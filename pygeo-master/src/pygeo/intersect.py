@@ -1,3 +1,5 @@
+# Adhish guli Virupaksha - 65032
+
 from .objects import Point, Vector, Ray, Sphere, Triangle
 import numpy as np
 
