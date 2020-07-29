@@ -42,6 +42,12 @@ def _intersect_ray_with_sphere(ray, sphere):
     if del_total>10**(-5):
         d1 = -del_1 + np.sqrt(del_total)
         d2 = -del_1 - np.sqrt(del_total) 
+        if d1>0 and d2<0:
+            x = o + Vector(d1*u._vector)
+            return x
+        if d1<0 and d2>0:
+            x = o + Vector(d2*u._vector)
+            return x    
         x1 = o + Vector(d1*u._vector) 
         x2 = o + Vector(d2*u._vector) 
         x=[x1,x2]
